@@ -9,7 +9,7 @@ export default class LinkedList {
 
   append(data) {
     const node = new Node(data);
-    if (this.head === null) {
+    if (!this.head) {
       this.head = node;
     } else {
       this.tail.next = node;
@@ -20,7 +20,7 @@ export default class LinkedList {
 
   prepend(data) {
     const node = new Node(data);
-    if (this.head === null) {
+    if (!this.head) {
       this.tail = node;
     } else {
       node.next = this.head;
@@ -32,78 +32,110 @@ export default class LinkedList {
   insertAt(data, index) {
     if (index === 0) {
       this.prepend(data);
-      return;
+      return "done";
     }
-    if (index === this.size) {
-      this.append(data);
-      return;
+    if (index < 0 || index > this.size) return null;
+    if (Number.isNaN(index)) return null;
+
+    let current = this.head;
+
+    while (index > 1) {
+      index--;
+      current = current.next;
     }
-    if (index < 0 || index > this.size) {
-      throw new Error(`Cannot set value to ${index}`);
-    }
-    if (Number.isNaN(index)) throw new Error("index must be a number!");
 
     const node = new Node(data);
-    let current = this.head;
-    let previous = null;
-    for (let i = 0; i < this.size; i++) {
-      if (i === index) {
-        previous.next = node;
-        node.next = current;
-        this.size += 1;
-        return "done";
-      }
-      previous = current;
-      current = current.next;
-    }
+
+    [current.next, node.next] = [node, current.next];
+    this.size = this.size + 1;
+    return "done";
   }
 
-  removeAtIndex(index) {
-    if (index === this.size - 1) this.pop();
-    if (index < 0 || index >= this.size) throw new Error("Invalid Index");
+  remove(value) {
+    if (this.size === 0) return null;
+    if ((this.head.data = value)) {
+      this.head = this.head.next;
+      this.size = this.size - 1;
+      return value;
+    }
 
     let current = this.head;
-    let previous = null;
-    for (let i = 0; i < this.size; i++) {
-      if (i === index) {
-        previous.next = current.next;
-        this.size -= 1;
-        return current;
-      }
-      previous = current;
+    while (current.next && current.next.data !== value) {
       current = current.next;
     }
-    return current;
+    if (current) {
+      current.next = current.next.next;
+      this.size = this.size - 1;
+      return value;
+    }
+
+    return null;
+  }
+
+  removeAt(index) {
+    if (this.size === 0) return null;
+    if (index === this.size - 1) return this.pop();
+    if (index < 0 || index >= this.size) return null;
+
+    if (index === 0) {
+      const node = this.head;
+      this.head = this.head.next;
+      this.size = this.size - 1;
+
+      return node;
+    }
+
+    let current = this.head;
+    let currentIndex = 0;
+
+    while (currentIndex < index) {
+      currentIndex++;
+      current = current.next;
+    }
+
+    const node = current.next;
+    current.next = current.next.next;
+    this.size = this.size - 1;
+
+    return node;
   }
 
   at(index) {
-    if (this.size < index || index < 0)
-      throw new Error("Cannot access LinkedList Node which doesn't exist");
+    if (this.size < index || index < 0) return null;
     let current = this.head;
-    for (let i = 0; i < index; i++) {
+    let currentIndex = 0;
+    while (currentIndex !== index) {
+      currentIndex++;
       current = current.next;
     }
+
     return current;
   }
 
   pop() {
+    if (this.size === 0) return null;
+    if (this.head === this.tail) {
+      const node = this.head;
+      this.head = null;
+      this.tail = null;
+      this.size--;
+      return node;
+    }
+
     let current = this.head;
-    let previous = null;
-    for (let i = 0; i < this.size; i++) {
-      if (current.next === null) {
-        previous.next = null;
-        this.tail = previous;
-        this.size -= 1;
-        return current;
-      }
-      previous = current;
+    while (current.next !== this.tail) {
       current = current.next;
     }
+    let removedNode = this.tail;
+    current.next = null;
+    this.tail = current;
+    this.size--;
+    return removedNode;
   }
 
   contains(value) {
     let current = this.head;
-    for (let i = 0; i < this.size; i++) {
+    while (current) {
       if (current.data === value) return true;
       current = current.next;
     }
