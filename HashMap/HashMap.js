@@ -1,9 +1,10 @@
-import LinkedList from "./LinkedList";
+import LinkedList from "../LinkedList/LinkedList.js";
 
 export default class HashMap {
   constructor(capacity = 16) {
     this.capacity = capacity;
     this.loadFactor = 0.8;
+    this.createBuckets();
   }
 
   createBuckets() {
@@ -25,6 +26,12 @@ export default class HashMap {
   }
 
   set(key, value) {
-    const bucketId = this.hash(key);
+    const bucket = this.buckets[this.hash(key)];
+    const node = bucket.contains(key);
+    if (node) {
+      bucket.update(key, value);
+    } else {
+      bucket.add(key, value);
+    }
   }
 }

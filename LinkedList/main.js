@@ -14,7 +14,8 @@ console.log("head", linkedList.head);
 console.log("tail", linkedList.tail);
 console.log("Printing as string: ", linkedList.toString());
 console.log("node @ index 3", linkedList.at(3));
-// console.log("node @ index 6", linkedList.at(6)); Error;
+console.log("node @ index 6", linkedList.at(6));
+Error;
 // console.log("popping", linkedList.pop());
 // console.log("popping", linkedList.pop());
 // console.log("popping", linkedList.pop());
@@ -41,14 +42,3 @@ console.log("Printing as string: ", linkedList.toString());
 
 console.log("Removing node @ index 3", linkedList.removeAt(3));
 console.log("Printing as string: ", linkedList.toString());
-
-// example uses class syntax - adjust as necessary
-// const list = new LinkedList();
-
-// list.append("dog");
-// list.append("cat");
-// list.append("parrot");
-// list.append("hamster");
-// list.append("snake");
-// list.append("turtle");
-// console.log(list.toString());

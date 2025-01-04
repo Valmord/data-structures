@@ -53,7 +53,7 @@ export default class LinkedList {
 
   remove(value) {
     if (this.size === 0) return null;
-    if ((this.head.data = value)) {
+    if (this.head.data === value) {
       this.head = this.head.next;
       this.size = this.size - 1;
       return value;
