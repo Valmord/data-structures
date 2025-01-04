@@ -1,0 +1,13 @@
+{
+  "name": "data-structures",
+  "version": "1.0.0",
+  "description": "data structures base on odin course",
+  "main": "HashMap.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
