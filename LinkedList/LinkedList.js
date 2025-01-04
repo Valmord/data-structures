@@ -64,6 +64,7 @@ export default class LinkedList {
       current = current.next;
     }
     if (current) {
+      if (current.next === this.tail) this.tail = current;
       current.next = current.next.next;
       this.size = this.size - 1;
       return value;

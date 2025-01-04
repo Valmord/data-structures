@@ -1,4 +1,4 @@
-import LinkedList from "../LinkedList/LinkedList.js";
+import LinkedList from "./LinkedList.js";
 
 export default class HashMap {
   constructor(capacity = 16) {
@@ -26,6 +26,8 @@ export default class HashMap {
   }
 
   set(key, value) {
+    // TODO: Check if above capacity
+
     const bucket = this.buckets[this.hash(key)];
     const node = bucket.contains(key);
     if (node) {
@@ -33,5 +35,20 @@ export default class HashMap {
     } else {
       bucket.add(key, value);
     }
+  }
+
+  get(key) {
+    const bucket = this.buckets[this.hash(key)];
+    return bucket.get(key);
+  }
+
+  has(key) {
+    const bucket = this.buckets[this.hash(key)];
+    return bucket.has(key);
+  }
+
+  remove(key) {
+    const bucket = this.buckets[this.hash(key)];
+    return bucket.remove(key);
   }
 }

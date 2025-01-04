@@ -18,7 +18,45 @@ export default class LinkedList {
     this.size += 1;
   }
 
+  update(key, value) {
+    let current = this.head;
+    while (current) {
+      if (current.key === key) {
+        current.value = value;
+        return;
+      }
+      current = current.next;
+    }
+  }
+
   contains(key) {
+    let current = this.head;
+    while (current) {
+      if (current.key === key) return true;
+      current = current.next;
+    }
+    return false;
+  }
+
+  getNode(key) {
+    let current = this.head;
+    while (current) {
+      if (current.key === key) return current;
+      current = current.next;
+    }
+    return false;
+  }
+
+  get(key) {
+    let current = this.head;
+    while (current) {
+      if (current.key === key) return current.value;
+      current = current.next;
+    }
+    return null;
+  }
+
+  has(key) {
     let current = this.head;
     while (current) {
       if (current.key === key) return true;
@@ -40,8 +78,10 @@ export default class LinkedList {
     while (current.next && current.next.key !== key) {
       current = current.next;
     }
+    console.log(current);
     if (current) {
       const node = current.next;
+      if (node === this.tail) this.tail = current;
       current.next = current.next.next;
       this.size = this.size - 1;
       return node;
