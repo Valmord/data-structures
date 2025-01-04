@@ -69,3 +69,11 @@ console.log(hashMap.get("river"));
 console.log(hashMap.has("river"));
 console.log(hashMap.remove("river"));
 console.log(hashMap.buckets);
+
+console.log(hashMap.length());
+// hashMap.clear();
+// console.log(hashMap.length());
+
+console.log(hashMap.keys());
+console.log(hashMap.values());
+console.log(hashMap.entries());

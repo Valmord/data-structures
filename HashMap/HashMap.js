@@ -51,4 +51,41 @@ export default class HashMap {
     const bucket = this.buckets[this.hash(key)];
     return bucket.remove(key);
   }
+
+  length() {
+    let total = 0;
+    for (let i = 0; i < this.buckets.length; i++) {
+      total += this.buckets[i].size;
+    }
+    return total;
+  }
+
+  clear() {
+    this.buckets = [];
+    this.createBuckets();
+  }
+
+  keys() {
+    const keys = [];
+    for (let i = 0; i < this.buckets.length; i++) {
+      keys.push(...this.buckets[i].getKeys());
+    }
+    return keys;
+  }
+
+  values() {
+    const values = [];
+    for (let i = 0; i < this.buckets.length; i++) {
+      values.push(...this.buckets[i].getValues());
+    }
+    return values;
+  }
+
+  entries() {
+    const entries = [];
+    for (let i = 0; i < this.buckets.length; i++) {
+      entries.push(...this.buckets[i].getEntries());
+    }
+    return entries;
+  }
 }
