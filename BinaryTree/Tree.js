@@ -24,6 +24,30 @@ export default class Tree {
     return this.root;
   }
 
+  _insertRecursive(value, node) {
+    if (value >= node.data) {
+      if (!node.right) {
+        node.right = new Node(value);
+        return;
+      }
+      this._insertRecursive(value, node.right);
+    } else {
+      if (!node.left) {
+        node.left = new Node(value);
+        return;
+      }
+      this._insertRecursive(value, node.left);
+    }
+  }
+
+  insertRecursive(value) {
+    if (!this.root) {
+      this.root = new Node(value);
+    } else {
+      this._insertRecursive(value, this.root);
+    }
+  }
+
   insert(value) {
     const node = new Node(value);
 
@@ -50,5 +74,29 @@ export default class Tree {
     }
   }
 
-  delete(value) {}
+  deleteNode(value, node = this.root) {
+    // console.log(node);
+    if (!node) return node;
+    if (node.data === value) {
+    }
+    if (value < node.data) {
+      node.left = this.deleteNode(value, node.left);
+    } else if (value > node.data) {
+      node.right = this.deleteNode(value, node.right);
+    } else {
+      // Case for 0-1 child
+      if (node.left === null) return node.right;
+      if (node.right === null) return node.left;
+
+      let current = node.right;
+      while (current && current.left) {
+        current = current.left;
+      }
+
+      node.data = current.data;
+      node.right = this.deleteNode(current.data, node.right);
+    }
+
+    return node;
+  }
 }

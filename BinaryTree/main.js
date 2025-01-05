@@ -23,11 +23,22 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 prettyPrint(tree.root);
 
-tree.insert(320);
-tree.insert(322);
-tree.insert(321);
-tree.insert(323);
-tree.insert(323);
-tree.insert(323);
+// tree.insert(320);
+// tree.insert(322);
+// tree.insert(321);
+// tree.insert(323);
+// tree.insert(323);
+// tree.insert(323);
+
+// tree.insertRecursive(320);
+// tree.insertRecursive(322);
+// tree.insertRecursive(321);
+// tree.insertRecursive(323);
+// tree.insertRecursive(323);
+// tree.insertRecursive(323);
+
+// prettyPrint(tree.root);
+
+tree.deleteNode(8);
 
 prettyPrint(tree.root);
