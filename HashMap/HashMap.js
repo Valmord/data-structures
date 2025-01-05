@@ -4,18 +4,24 @@ export default class HashMap {
   constructor(capacity = 16) {
     this.capacity = capacity;
     this.loadFactor = 0.8;
-    this.createBuckets();
+    this._length = 0;
+    this._createBuckets();
   }
 
-  createBuckets() {
-    this.buckets = [];
-    for (let i = 0; i < this.capacity; i++) {
-      const bucket = new LinkedList();
-      this.buckets.push(bucket);
-    }
+  _createBuckets(capacity = this.capacity) {
+    this.buckets = new Array(capacity).fill(null).map(() => new LinkedList());
   }
 
-  hash(key) {
+  _resize() {
+    const entries = this.entries();
+    this._createBuckets((this.capacity *= 2));
+    this._length = 0;
+    entries.forEach((entry) => {
+      this.set(entry[0], entry[1]);
+    });
+  }
+
+  _hash(key) {
     let hashCode = 0;
 
     const primeNumber = 37;
@@ -26,9 +32,13 @@ export default class HashMap {
   }
 
   set(key, value) {
-    // TODO: Check if above capacity
+    if (this._length / this.capacity > this.loadFactor) {
+      this._resize();
+    }
 
-    const bucket = this.buckets[this.hash(key)];
+    const bucket = this.buckets[this._hash(key)];
+    if (bucket.size === 0) this._length++;
+
     const node = bucket.contains(key);
     if (node) {
       bucket.update(key, value);
@@ -38,31 +48,28 @@ export default class HashMap {
   }
 
   get(key) {
-    const bucket = this.buckets[this.hash(key)];
+    const bucket = this.buckets[this._hash(key)];
     return bucket.get(key);
   }
 
   has(key) {
-    const bucket = this.buckets[this.hash(key)];
+    const bucket = this.buckets[this._hash(key)];
     return bucket.has(key);
   }
 
   remove(key) {
-    const bucket = this.buckets[this.hash(key)];
+    const bucket = this.buckets[this._hash(key)];
     return bucket.remove(key);
   }
 
   length() {
-    let total = 0;
-    for (let i = 0; i < this.buckets.length; i++) {
-      total += this.buckets[i].size;
-    }
-    return total;
+    return this._length;
   }
 
   clear() {
     this.buckets = [];
-    this.createBuckets();
+    this._createBuckets(16);
+    this._length = 0;
   }
 
   keys() {

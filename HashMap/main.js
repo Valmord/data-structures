@@ -19,6 +19,8 @@ hashMap.set("pet", "Dog");
 hashMap.set("car", "Toyota");
 hashMap.set("movie", "Inception");
 
+console.log(hashMap.length());
+
 hashMap.set("book", "1984");
 hashMap.set("author", "George Orwell");
 hashMap.set("phone", "iPhone");
@@ -29,6 +31,8 @@ hashMap.set("website", "example.com");
 hashMap.set("address", "123 Main St");
 hashMap.set("school", "Central High");
 hashMap.set("degree", "Computer Science");
+
+console.log(hashMap.length());
 
 hashMap.set("coffee", "Latte");
 hashMap.set("tea", "Green");
@@ -41,6 +45,8 @@ hashMap.set("game", "Chess");
 hashMap.set("music", "Rock");
 hashMap.set("band", "Coldplay");
 
+console.log(hashMap.length());
+
 hashMap.set("season", "Winter");
 hashMap.set("month", "December");
 hashMap.set("day", "Monday");
@@ -51,6 +57,8 @@ hashMap.set("holiday", "Christmas");
 hashMap.set("festival", "Diwali");
 hashMap.set("currency", "Dollar");
 hashMap.set("sport", "Soccer");
+
+console.log(hashMap.length());
 
 hashMap.set("bike", "Yamaha");
 hashMap.set("laptop", "Dell");
@@ -63,17 +71,18 @@ hashMap.set("tree", "Oak");
 hashMap.set("river", "Nile");
 hashMap.set("continent", "Asia");
 
-console.log(hashMap.buckets);
+// console.log(hashMap.buckets);
 
 console.log(hashMap.get("river"));
 console.log(hashMap.has("river"));
 console.log(hashMap.remove("river"));
-console.log(hashMap.buckets);
 
 console.log(hashMap.length());
 // hashMap.clear();
 // console.log(hashMap.length());
 
-console.log(hashMap.keys());
-console.log(hashMap.values());
-console.log(hashMap.entries());
+// console.log(hashMap.keys());
+// console.log(hashMap.values());
+// console.log(hashMap.entries());
+
+console.log(hashMap.buckets);
