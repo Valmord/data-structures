@@ -4,7 +4,7 @@ export default class HashSet {
   constructor(capacity = 16) {
     this.capacity = capacity;
     this.loadFactor = 0.8;
-    this._length = 0;
+    this._bucketsFilled = 0;
     this._createBuckets();
   }
 
@@ -15,7 +15,7 @@ export default class HashSet {
   _resize() {
     const entries = this.entries();
     this._createBuckets((this.capacity *= 2));
-    this._length = 0;
+    this._bucketsFilled = 0;
     entries.forEach((entry) => {
       this.set(entry[0], entry[1]);
     });
@@ -32,12 +32,12 @@ export default class HashSet {
   }
 
   set(key) {
-    if (this._length / this.capacity > this.loadFactor) {
+    if (this._bucketsFilled / this.capacity > this.loadFactor) {
       this._resize();
     }
 
     const bucket = this.buckets[this._hash(key)];
-    if (bucket.size === 0) this._length++;
+    if (bucket.size === 0) this._bucketsFilled++;
 
     const node = bucket.contains(key);
     if (node) {
@@ -58,13 +58,13 @@ export default class HashSet {
   }
 
   length() {
-    return this._length;
+    return this.keys().length;
   }
 
   clear() {
     this.buckets = [];
     this._createBuckets(16);
-    this._length = 0;
+    this._bucketsFilled = 0;
   }
 
   keys() {
