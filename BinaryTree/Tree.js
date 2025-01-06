@@ -161,13 +161,29 @@ export default class Tree {
     this._inOrder(callback, this.root);
   }
 
+  _preOrder(callback, node) {
+    if (node === null) return;
+    callback(node);
+    this._preOrder(callback, node.left);
+    this._preOrder(callback, node.right);
+  }
+
   preOrder(callback) {
     this._checkCallback(callback);
     if (!this.root) return null;
+    this._preOrder(callback, this.root);
+  }
+
+  _postOrder(callback, node) {
+    if (node === null) return;
+    this._postOrder(callback, node.left);
+    this._postOrder(callback, node.right);
+    callback(node);
   }
 
   postOrder(callback) {
     this._checkCallback(callback);
     if (!this.root) return null;
+    this._postOrder(callback, this.root);
   }
 }

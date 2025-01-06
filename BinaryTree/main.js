@@ -47,4 +47,9 @@ console.log(tree.find(4));
 
 // tree.levelOrder((node) => console.log(node.data));
 // tree.levelOrderRecursive((node) => console.log(node.data));
+console.log("InOrder");
 tree.inOrder((node) => console.log(node.data));
+console.log("PreOrder");
+tree.preOrder((node) => console.log(node.data));
+console.log("PostOrder");
+tree.postOrder((node) => console.log(node.data));
