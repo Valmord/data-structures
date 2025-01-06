@@ -115,21 +115,59 @@ export default class Tree {
     return this._find(value, this.root);
   }
 
-  levelOrder(callback) {
+  _checkCallback(callback) {
     if (!callback || typeof callback !== "function")
       throw new Error("Callback function required");
+  }
+
+  levelOrder(callback) {
+    this._checkCallback(callback);
+    if (!this.root) return null;
 
     const queue = [this.root];
-    let index = 0;
-    let node = queue[index];
-    while (node) {
+    while (queue.length > 0) {
+      let node = queue.shift();
       callback(node);
       if (node.left !== null) queue.push(node.left);
       if (node.right !== null) queue.push(node.right);
-      index++;
-      node = queue[index];
     }
   }
 
-  levelOrderRecursive(callback) {}
+  _levelOrderRecursive(callback, queue) {
+    const node = queue.shift(0);
+    if (!node) return;
+    callback(node);
+    if (node.left) queue.push(node.left);
+    if (node.right) queue.push(node.right);
+    this._levelOrderRecursive(callback, queue);
+  }
+
+  levelOrderRecursive(callback) {
+    this._checkCallback(callback);
+    if (!this.root) return null;
+    this._levelOrderRecursive(callback, [this.root]);
+  }
+
+  _inOrder(callback, node) {
+    if (node === null) return;
+    this._inOrder(callback, node.left);
+    callback(node);
+    this._inOrder(callback, node.right);
+  }
+
+  inOrder(callback) {
+    this._checkCallback(callback);
+    if (!this.root) return null;
+    this._inOrder(callback, this.root);
+  }
+
+  preOrder(callback) {
+    this._checkCallback(callback);
+    if (!this.root) return null;
+  }
+
+  postOrder(callback) {
+    this._checkCallback(callback);
+    if (!this.root) return null;
+  }
 }

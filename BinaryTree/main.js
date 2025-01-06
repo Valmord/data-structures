@@ -45,4 +45,6 @@ prettyPrint(tree.root);
 
 console.log(tree.find(4));
 
-tree.levelOrder((node) => console.log(node.data));
+// tree.levelOrder((node) => console.log(node.data));
+// tree.levelOrderRecursive((node) => console.log(node.data));
+tree.inOrder((node) => console.log(node.data));
