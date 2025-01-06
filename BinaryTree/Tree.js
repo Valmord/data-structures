@@ -104,15 +104,16 @@ export default class Tree {
     this._deleteNode(value, this.root);
   }
 
-  _find(value, node) {
-    if (value < node.data) return this._find(value, node.left);
-    if (value > node.data) return this._find(value, node.right);
-    return node;
-  }
-
   find(value) {
     if (!this.root) return null;
-    return this._find(value, this.root);
+
+    function findRecursion(node) {
+      if (value < node.data) return findRecursion(node.left);
+      if (value > node.data) return findRecursion(node.right);
+      return node;
+    }
+
+    return findRecursion(this.root);
   }
 
   _checkCallback(callback) {
@@ -191,5 +192,21 @@ export default class Tree {
     }
 
     traverseTree(this.root);
+  }
+
+  height(node) {
+    if (node === null) return -1;
+    return Math.max(this.height(node.left), this.height(node.right)) + 1;
+  }
+
+  depth(node) {
+    function traverseTree(root) {
+      if (root === null) return -1;
+      if (root === node) return 0;
+      if (node.data < root.data) return traverseTree(root.left) + 1;
+      return traverseTree(root.right) + 1;
+    }
+
+    return traverseTree(this.root);
   }
 }

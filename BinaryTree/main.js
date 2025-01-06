@@ -47,9 +47,19 @@ console.log(tree.find(4));
 
 // tree.levelOrder((node) => console.log(node.data));
 // tree.levelOrderRecursive((node) => console.log(node.data));
-console.log("InOrder");
-tree.inOrder((node) => console.log(node.data));
-console.log("PreOrder");
-tree.preOrder((node) => console.log(node.data));
-console.log("PostOrder");
-tree.postOrder((node) => console.log(node.data));
+// console.log("InOrder");
+// tree.inOrder((node) => console.log(node.data));
+// console.log("PreOrder");
+// tree.preOrder((node) => console.log(node.data));
+// console.log("PostOrder");
+// tree.postOrder((node) => console.log(node.data));
+
+const node3 = tree.find(9);
+console.log("Depth:", tree.depth(node3));
+const node = tree.find(4);
+console.log("Depth:", tree.depth(node));
+const node2 = tree.find(6345);
+console.log("Depth:", tree.depth(node2));
+
+console.log("Height:", tree.height(node));
+console.log("Height:", tree.height(node2));
