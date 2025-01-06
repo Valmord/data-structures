@@ -66,6 +66,15 @@ console.log("Height:", tree.height(node2));
 
 console.log("Balanced:", tree.isBalanced());
 
-tree.insert(999);
+tree.insert(15);
+tree.insert(93);
+tree.insert(9949);
+tree.insert(9969);
+tree.insert(99);
+tree.insert(999999);
 
 console.log("Balanced:", tree.isBalanced());
+
+console.log(tree.rebalance());
+
+prettyPrint(tree.root);

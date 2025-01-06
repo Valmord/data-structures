@@ -210,24 +210,29 @@ export default class Tree {
     return traverseTree(this.root);
   }
 
-  isBalanced(node = this.root) {
-    // start at root
-    // compare left to right (max)
-    // if left vs right > 2, return imbalanced
-    // if lvr is 0 or 1, balanced
+  isBalanced() {
+    function checkBalance(node) {
+      if (node === null) return 0;
 
-    if (node === null) return true;
+      const left = checkBalance(node.left);
+      if (left === -1) return -1;
+      const right = checkBalance(node.right);
+      if (right === -1) return -1;
 
-    const left = this.height(node.left);
-    const right = this.height(node.right);
+      if (Math.abs(left - right) > 1) return -1;
 
-    if (
-      Math.abs(left - right) <= 1 &&
-      this.isBalanced(node.left) &&
-      this.isBalanced(node.right)
-    )
-      return true;
+      return Math.max(left, right) + 1;
+    }
 
-    return false;
+    return checkBalance(this.root) !== -1;
+  }
+
+  rebalance() {
+    if (this.isBalanced()) return;
+
+    const inOrderArray = [];
+    this.inOrder((node) => inOrderArray.push(node.data));
+
+    this.root = this._buildTree(inOrderArray, 0, inOrderArray.length - 1);
   }
 }
