@@ -234,5 +234,6 @@ export default class Tree {
     this.inOrder((node) => inOrderArray.push(node.data));
 
     this.root = this._buildTree(inOrderArray, 0, inOrderArray.length - 1);
+    return this.root;
   }
 }
