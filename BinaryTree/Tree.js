@@ -74,15 +74,14 @@ export default class Tree {
     }
   }
 
-  deleteNode(value, node = this.root) {
-    // console.log(node);
-    if (!node) return node;
+  _deleteNode(value, node) {
+    if (!node) return null;
     if (node.data === value) {
     }
     if (value < node.data) {
-      node.left = this.deleteNode(value, node.left);
+      node.left = this._deleteNode(value, node.left);
     } else if (value > node.data) {
-      node.right = this.deleteNode(value, node.right);
+      node.right = this._deleteNode(value, node.right);
     } else {
       // Case for 0-1 child
       if (node.left === null) return node.right;
@@ -94,9 +93,43 @@ export default class Tree {
       }
 
       node.data = current.data;
-      node.right = this.deleteNode(current.data, node.right);
+      node.right = this._deleteNode(current.data, node.right);
     }
 
     return node;
   }
+
+  deleteNode(value) {
+    if (!this.root) return;
+    this._deleteNode(value, this.root);
+  }
+
+  _find(value, node) {
+    if (value < node.data) return this._find(value, node.left);
+    if (value > node.data) return this._find(value, node.right);
+    return node;
+  }
+
+  find(value) {
+    if (!this.root) return null;
+    return this._find(value, this.root);
+  }
+
+  levelOrder(callback) {
+    if (!callback || typeof callback !== "function")
+      throw new Error("Callback function required");
+
+    const queue = [this.root];
+    let index = 0;
+    let node = queue[index];
+    while (node) {
+      callback(node);
+      if (node.left !== null) queue.push(node.left);
+      if (node.right !== null) queue.push(node.right);
+      index++;
+      node = queue[index];
+    }
+  }
+
+  levelOrderRecursive(callback) {}
 }

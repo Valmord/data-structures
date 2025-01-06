@@ -42,3 +42,7 @@ prettyPrint(tree.root);
 tree.deleteNode(8);
 
 prettyPrint(tree.root);
+
+console.log(tree.find(4));
+
+tree.levelOrder((node) => console.log(node.data));
