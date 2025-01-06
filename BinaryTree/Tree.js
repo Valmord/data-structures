@@ -209,4 +209,25 @@ export default class Tree {
 
     return traverseTree(this.root);
   }
+
+  isBalanced(node = this.root) {
+    // start at root
+    // compare left to right (max)
+    // if left vs right > 2, return imbalanced
+    // if lvr is 0 or 1, balanced
+
+    if (node === null) return true;
+
+    const left = this.height(node.left);
+    const right = this.height(node.right);
+
+    if (
+      Math.abs(left - right) <= 1 &&
+      this.isBalanced(node.left) &&
+      this.isBalanced(node.right)
+    )
+      return true;
+
+    return false;
+  }
 }

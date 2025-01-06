@@ -63,3 +63,9 @@ console.log("Depth:", tree.depth(node2));
 
 console.log("Height:", tree.height(node));
 console.log("Height:", tree.height(node2));
+
+console.log("Balanced:", tree.isBalanced());
+
+tree.insert(999);
+
+console.log("Balanced:", tree.isBalanced());
