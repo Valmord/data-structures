@@ -133,57 +133,63 @@ export default class Tree {
     }
   }
 
-  _levelOrderRecursive(callback, queue) {
-    const node = queue.shift(0);
-    if (!node) return;
-    callback(node);
-    if (node.left) queue.push(node.left);
-    if (node.right) queue.push(node.right);
-    this._levelOrderRecursive(callback, queue);
-  }
-
   levelOrderRecursive(callback) {
     this._checkCallback(callback);
     if (!this.root) return null;
-    this._levelOrderRecursive(callback, [this.root]);
-  }
 
-  _inOrder(callback, node) {
-    if (node === null) return;
-    this._inOrder(callback, node.left);
-    callback(node);
-    this._inOrder(callback, node.right);
+    const queue = [this.root];
+
+    function traverseTree() {
+      const node = queue.shift();
+      if (!node) return;
+      callback(node);
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+      traverseTree();
+    }
+
+    traverseTree();
   }
 
   inOrder(callback) {
     this._checkCallback(callback);
     if (!this.root) return null;
-    this._inOrder(callback, this.root);
-  }
 
-  _preOrder(callback, node) {
-    if (node === null) return;
-    callback(node);
-    this._preOrder(callback, node.left);
-    this._preOrder(callback, node.right);
+    function traverseTree(node) {
+      if (node === null) return;
+      traverseTree(node.left);
+      callback(node);
+      traverseTree(node.right);
+    }
+
+    traverseTree(this.root);
   }
 
   preOrder(callback) {
     this._checkCallback(callback);
     if (!this.root) return null;
-    this._preOrder(callback, this.root);
-  }
 
-  _postOrder(callback, node) {
-    if (node === null) return;
-    this._postOrder(callback, node.left);
-    this._postOrder(callback, node.right);
-    callback(node);
+    function traverseTree(node) {
+      if (node === null) return;
+      callback(node);
+      traverseTree(node.left);
+      traverseTree(node.right);
+    }
+
+    traverseTree(this.root);
   }
 
   postOrder(callback) {
     this._checkCallback(callback);
     if (!this.root) return null;
-    this._postOrder(callback, this.root);
+
+    function traverseTree(node) {
+      if (node === null) return;
+      traverseTree(node.left);
+      traverseTree(node.right);
+      callback(node);
+    }
+
+    traverseTree(this.root);
   }
 }
